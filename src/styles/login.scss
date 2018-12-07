@@ -1,4 +1,17 @@
+
+@import 'index.scss';
+
 body, html{
-  margin: 20px !important;
-  color: blue !important;
+  margin: 0 !important;
+  font-family: 'Titillium Web', sans-serif !important;
+  letter-spacing: -0.5px;
+}
+
+.login-container{
+  min-height: 100vh;
+  max-height: 100vh;
+  background: url('/img/login-bg.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 150px;
 }

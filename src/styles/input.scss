@@ -1,0 +1,143 @@
+@import '../variables.scss';
+
+.error-msg{
+  font-size: 0.67em;
+  color: $red;
+}
+
+.form-group{
+    &.custom{
+      label{
+        background: #FFF;
+        position: absolute;
+        color: $gray-label;
+        margin: 12px;
+        margin-left: 16px;
+        z-index: 0;
+        transition: 0.3s;
+        cursor: text;
+        font-size: 16px;
+        
+        &.active{
+          margin: -0.5rem !important;
+          margin-left: 0.5rem !important;
+          color: $brand;
+          transition: 0.3s;
+          padding-left: 0.25rem;
+          padding-right: 0.25rem;
+          font-size: 12px;
+          z-index: 2;
+          &.focused{
+            color: $brand;
+          }
+        }
+      }
+    
+      .form-control{
+        background: none;
+        position: relative;
+        z-index: 1;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        -moz-appearance:none; /* Firefox */
+        -webkit-appearance:none; /* Safari and Chrome */
+        appearance:none;
+        border-radius: 4px;
+        font-size: 16px;
+
+        &.active {
+          border: 1px solid #80bdff;
+        }
+            
+        &:focus{
+          border-color: 1px solid $brand;
+          box-shadow: 0 0 0 0 transparent;
+          background: none;
+        }
+    
+        &:not([size]):not([multiple]){
+          height: auto;
+        }
+
+        &:disabled{
+          background: rgba(100, 100, 100, 0.1);
+        }
+      }
+
+      &.error{
+        .form-control{
+          border: 1px solid $red;
+        }
+        input{
+          border: 1px solid $red !important;
+        }
+        label{
+          &.active{
+            color: $red;
+          }
+        }
+      }
+
+      .input-error{
+        color: $red;
+        font-size: 14px;
+      }
+    
+        .arrow-down{
+          position: absolute;
+          top: 1rem;
+          right: 12px;
+          padding-left: 5px;
+          width: auto;
+          color: #AFAFAF;
+        }
+
+        .icon{
+          position: absolute;
+          height: 18px;
+          top: 16px;
+          right: 10px;
+          padding-left: 5px;
+          width: auto;
+          color: #AFAFAF;
+        }
+
+        .image-load{
+          position: absolute;
+          top: 5px;
+          right: 12px;
+          padding-left: 5px;
+          width: auto;
+          max-width: 46px;
+        }
+
+        .show-password{
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 2;
+          cursor: pointer;
+          padding-right: 0.8rem;
+          height: 100%;
+
+          .show-password-icon{
+            position: relative;
+            display: table;
+            height: 50px;
+          }
+
+          svg{
+            color: $wolfgray;
+            display: table-cell;
+            vertical-align: middle;
+            height: 100%;
+          }
+        }
+
+        .description{
+          color: $gray-label;
+          font-size: 14px;
+          margin-top: 5px;
+        }
+    }
+  }

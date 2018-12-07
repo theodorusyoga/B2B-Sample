@@ -46,6 +46,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
+    "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
     "style-loader": "0.23.0",
@@ -59,7 +60,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "clear:babel-cache": "rimraf -rf ./node_modules/.cache/babel-loader/*"
   },
   "eslintConfig": {
     "extends": "react-app"

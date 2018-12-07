@@ -10,7 +10,7 @@ class MainLayout extends React.Component {
     const { children } = this.props;
     return (
       <div>
-        <main className="main">
+        <main className="login-container">
           {children}
         </main>
       </div>

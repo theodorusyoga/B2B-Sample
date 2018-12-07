@@ -2,37 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { simpleAction } from '../actions/login';
+import { Container } from 'reactstrap';
+import {
+  Form, reduxForm, initialize
+} from 'redux-form';
+import { formValidation } from '../helpers/validation';
 
 import '../styles/login.scss';
 
 class Login extends Component {
   componentWillMount() {
+    const { initialize } = this.props;
+    initialize({
+      username: '',
+      password: ''
+    });
   }
 
   render() {
-    const { simpleAction } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src="" className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-     To get started, edit
-          {' '}
-          <code>src/App.js</code>
-          {' '}
-and save to reload
-        </p>
-        <button type="button" onClick={simpleAction}>Test redux action</button>
-      </div>
+      <Container className="login-box">
+        <Form />
+      </Container>
     );
   }
 }
 
 Login.propTypes = {
-  simpleAction: PropTypes.func.isRequired
+  initialize: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -40,8 +37,13 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  simpleAction
+  initialize: data => initialize('login', data)
 }, dispatch);
 
+const loginForm = reduxForm({
+  form: 'login',
+  validate: formValidation
+})(formValidation);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
+export default connect(mapStateToProps, mapDispatchToProps)(loginForm);

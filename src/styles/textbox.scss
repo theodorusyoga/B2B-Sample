@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import 'variables.scss';
 
 .error-msg{
   font-size: 0.67em;
@@ -6,6 +6,8 @@
 }
 
 .form-group{
+    margin-top: 15px;
+    margin-bottom: 15px;
     &.custom{
       label{
         background: #FFF;
@@ -21,14 +23,14 @@
         &.active{
           margin: -0.5rem !important;
           margin-left: 0.5rem !important;
-          color: $brand;
+          color: $gray-dark;
           transition: 0.3s;
           padding-left: 0.25rem;
           padding-right: 0.25rem;
           font-size: 12px;
           z-index: 2;
           &.focused{
-            color: $brand;
+            color: $gray-dark;
           }
         }
       }
@@ -46,11 +48,11 @@
         font-size: 16px;
 
         &.active {
-          border: 1px solid #80bdff;
+          border: 1px solid $gray-dark;
         }
             
         &:focus{
-          border-color: 1px solid $brand;
+          border-color: $gray-dark !important;
           box-shadow: 0 0 0 0 transparent;
           background: none;
         }
@@ -127,7 +129,7 @@
           }
 
           svg{
-            color: $wolfgray;
+            color: $gray-icon;
             display: table-cell;
             vertical-align: middle;
             height: 100%;

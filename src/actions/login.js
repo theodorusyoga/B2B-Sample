@@ -1,8 +1,8 @@
-export const simpleAction = () => (dispatch) => {
-  dispatch({
-    type: 'SIMPLE_ACTION',
-    payload: process.env.API_URL
-  });
+export const onLoginFormSubmit = (values, { setSubmitting }) => (dispatch) => {
+  console.warn(values);
+  setTimeout(() => {
+    setSubmitting(false);
+  }, 2000);
 };
 
-export default simpleAction;
+export default onLoginFormSubmit;

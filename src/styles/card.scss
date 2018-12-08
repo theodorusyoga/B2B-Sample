@@ -1,0 +1,17 @@
+@import 'variables.scss';
+
+.store-card{
+  .card{
+    cursor: pointer;
+    border-radius: 0px;
+    box-shadow: 0 16px 20px -18px rgba(48, 45, 45, 0.5);
+    margin-bottom: 20px;
+    transition: 0.3s;
+    &:hover{
+      box-shadow: 0 16px 20px 0 rgba(148, 148, 148, 0.5);
+    }
+    .card-img{
+      border-radius: 0px;
+    }
+  }
+}

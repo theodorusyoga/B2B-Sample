@@ -33,7 +33,6 @@ body, html{
 
     .login-form{
       margin-top: 15px;
-      margin-bottom: 15px;
       .form-group{
         margin-bottom: 0px;
       }
@@ -49,6 +48,9 @@ body, html{
           border: 1px solid $brand;
           color: $brand;
         }
+      }
+      .login-footer{
+        margin-top: 20px;
       }
     }
   }

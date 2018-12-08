@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { checkLogin } from '../actions/login';
 
-class MainLayout extends React.Component {
+import '../styles/login.scss';
+
+class LoginLayout extends React.Component {
   componentWillMount() {
+    const { checkLogin } = this.props;
+    checkLogin();
   }
 
   render() {
@@ -18,18 +24,22 @@ class MainLayout extends React.Component {
   }
 }
 
-MainLayout.propTypes = {
+LoginLayout.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
     PropTypes.element
-  ]).isRequired
+  ]).isRequired,
+  checkLogin: PropTypes.func.isRequired
 };
 
 const mapStateToProps = () => ({
 });
 
+const mapDispatchToProps = dispatch => bindActionCreators({
+  checkLogin
+}, dispatch);
 
 export default connect(
-  mapStateToProps
-)(MainLayout);
+  mapStateToProps, mapDispatchToProps
+)(LoginLayout);

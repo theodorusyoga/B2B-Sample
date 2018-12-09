@@ -1,8 +1,10 @@
-import { getStores } from '../helpers/api';
+import { push } from 'react-router-redux';
+import { getStores, getStoreDetails } from '../helpers/api';
 
 export const SET_STORE_LIST = 'store/SET_STORE_LIST';
 export const SET_WARNING = 'store/SET_WARNING';
 export const TOGGLE_LOADING = 'store/TOGGLE_LOADING';
+export const SET_STORE_DETAILS = 'store/SET_STORE_DETAILS';
 
 export const toggleLoading = isLoading => ({ type: TOGGLE_LOADING, isLoading });
 
@@ -49,6 +51,17 @@ export const getStore = action => async (dispatch, getState) => {
     } else {
       dispatch({ type: SET_WARNING, warning: ['Check your connection and try again'] });
     }
+    dispatch(toggleLoading(false));
+  });
+};
+
+export const getStoreDetail = id => async (dispatch) => {
+  dispatch(toggleLoading(true));
+  getStoreDetails(id).then(async ({ data }) => {
+    dispatch({ type: SET_STORE_DETAILS, storeDetails: data });
+    dispatch(toggleLoading(false));
+  }).catch(() => {
+    dispatch(push('/404'));
     dispatch(toggleLoading(false));
   });
 };

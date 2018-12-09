@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import {
-  Navbar, NavbarBrand,
-  Collapse, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle,
-  DropdownItem, DropdownMenu, Button
+  Navbar, Collapse, Nav, NavItem, NavLink, UncontrolledDropdown,
+  DropdownToggle, DropdownItem, DropdownMenu, Button
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -28,15 +29,17 @@ class MainLayout extends React.Component {
   }
 
   render() {
-    const { children, isAuthenticated, username } = this.props;
+    const {
+      children, isAuthenticated, username, goTo
+    } = this.props;
     const { isOpen } = this.state;
     return (
       <div>
         <header className="custom-header">
           <Navbar color="light" light expand="md">
-            <NavbarBrand className="" href="/">
+            <Link className="navbar-brand" href="/" to="/">
               <img src="/img/stoqo.png" alt="Stoqo" width="35" />
-            </NavbarBrand>
+            </Link>
             <div className="shopping-cart text-right">
               <NavLink href="/">
                 <FontAwesomeIcon icon={faShoppingCart} />
@@ -68,17 +71,17 @@ class MainLayout extends React.Component {
                         </DropdownToggle>
                         <DropdownMenu right>
                           <DropdownItem>
-                    Log Out
+                            <Link to="/logout" href="/logout">Log Out</Link>
                           </DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     ) : (
                       <React.Fragment>
                         <NavItem>
-                          <Button className="nav-btn">Login</Button>
+                          <Button className="nav-btn" onClick={() => goTo('/login')}>Login</Button>
                         </NavItem>
                         <NavItem>
-                          <Button className="nav-btn dark">Sign Up</Button>
+                          <Button className="nav-btn dark" onClick={() => goTo('/sign-up')}>Sign Up</Button>
                         </NavItem>
                       </React.Fragment>
                     )
@@ -123,7 +126,8 @@ MainLayout.propTypes = {
   ]).isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
-  checkLogin: PropTypes.func.isRequired
+  checkLogin: PropTypes.func.isRequired,
+  goTo: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ login }) => ({
@@ -132,7 +136,8 @@ const mapStateToProps = ({ login }) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  checkLogin
+  checkLogin,
+  goTo: link => (dispatch) => { dispatch(push(link)); }
 }, dispatch);
 
 export default connect(

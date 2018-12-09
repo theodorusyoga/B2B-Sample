@@ -11,7 +11,7 @@ import Rating from 'react-star-ratings';
 import '../styles/card.scss';
 
 const StoreCard = ({
-  imageUrl, title, description, link, rating, goTo
+  imageUrl, title, description, location, link, rating, goTo
 }) => (
   <div
     className="store-card"
@@ -48,6 +48,7 @@ StoreCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
   goTo: PropTypes.func.isRequired,
   rating: PropTypes.number

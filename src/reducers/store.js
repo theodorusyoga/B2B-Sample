@@ -1,4 +1,7 @@
-import { SET_STORE_LIST, SET_WARNING, TOGGLE_LOADING } from '../actions/store';
+import {
+  SET_STORE_LIST, SET_WARNING, TOGGLE_LOADING,
+  SET_STORE_DETAILS
+} from '../actions/store';
 
 const initialState = {
   stores: [],
@@ -6,7 +9,8 @@ const initialState = {
   next: '',
   previous: '',
   warning: [],
-  isLoading: false
+  isLoading: false,
+  storeDetails: {}
 };
 
 export default (state = initialState, action) => {
@@ -28,6 +32,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.isLoading
+      };
+    case SET_STORE_DETAILS:
+      return {
+        ...state,
+        storeDetails: action.storeDetails
       };
     default:
       return state;

@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import { Formik } from 'formik';
 import Textbox from '../components/textbox';
+import Loader from '../components/loader';
 import { formValidation } from '../helpers/validation';
 import { onLoginFormSubmit } from '../actions/login';
 
@@ -44,9 +45,7 @@ class Login extends Component {
             values, errors, touched, handleChange, handleBlur,
             handleSubmit, isSubmitting
           }) => (isSubmitting ? (
-            <div className="text-center">
-              <img src="/img/loading.svg" alt="Loading" />
-            </div>
+            <Loader />
           )
             : (
               <Form className="login-form" onSubmit={handleSubmit}>

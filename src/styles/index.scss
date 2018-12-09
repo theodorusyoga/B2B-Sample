@@ -69,6 +69,11 @@
         color: $gray-label;
         font-weight: 400;
       }
+      .dropdown-menu{
+        a{
+          color: $gray-label;
+        }
+      }
       .close-nav-item{
         cursor: pointer;
         @media screen and (min-width: 768px) {

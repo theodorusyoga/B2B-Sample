@@ -6,8 +6,8 @@ import {
 const initialState = {
   stores: [],
   count: 0,
-  next: '',
-  previous: '',
+  next: 0,
+  previous: 0,
   warning: [],
   isLoading: false,
   isStoreLoading: false,

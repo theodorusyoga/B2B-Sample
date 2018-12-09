@@ -21,9 +21,11 @@ export const getStore = action => async (dispatch, getState) => {
   let params;
 
   if (action === 'next') {
-    params = { page: getState().store.next };
+    const page = getState().store.next;
+    params = { page: page !== 0 ? page : undefined };
   } else if (action === 'previous') {
-    params = { page: getState().store.previous };
+    const page = getState().store.previous;
+    params = { page: page !== 0 ? page : undefined };
   }
 
   getStores(params).then(async ({ data }) => {
@@ -31,12 +33,18 @@ export const getStore = action => async (dispatch, getState) => {
     let nextPage;
     let prevPage;
     if (data.next !== null) {
-      const nextParams = new URLSearchParams(data.next);
-      nextPage = Number(nextParams.get('page'));
+      const split = String(data.next).split('?');
+      if (split.length > 0) {
+        const nextParams = new URLSearchParams(split[1]);
+        nextPage = Number(nextParams.get('page'));
+      }
     }
     if (data.previous !== null) {
-      const prevParams = new URLSearchParams(data.previous);
-      prevPage = Number(prevParams.get('page'));
+      const split = String(data.previous).split('?');
+      if (split.length > 0) {
+        const prevParams = new URLSearchParams(split[1]);
+        prevPage = Number(prevParams.get('page'));
+      }
     }
 
     await dispatch({
@@ -64,7 +72,7 @@ export const getStoreDetail = id => async (dispatch) => {
     dispatch({ type: SET_STORE_DETAILS, storeDetails: data });
     dispatch(toggleStoreLoading(false));
   }).catch(() => {
-    dispatch(push('/404'));
+    dispatch(push('/'));
     dispatch(toggleStoreLoading(false));
   });
 };

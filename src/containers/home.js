@@ -6,6 +6,7 @@ import { Row, Col } from 'reactstrap';
 import Header from '../components/header';
 import { getStore } from '../actions/store';
 import StoreCard from '../components/storeCard';
+import Pagination from '../components/pagination';
 
 import '../styles/home.scss';
 
@@ -16,12 +17,14 @@ class Home extends React.Component {
   }
 
   render() {
-    const { stores, isLoading } = this.props;
+    const {
+      stores, isLoading, count, next, previous, getStore
+    } = this.props;
     return (
       <React.Fragment>
         <Header />
-        <div className="product-show">
-          <h2 className="product-title">Our Featured Stores</h2>
+        <div className="store-show">
+          <h2 className="store-title">Our Featured Stores</h2>
           {
         isLoading
           ? (
@@ -47,20 +50,40 @@ class Home extends React.Component {
           )
       }
         </div>
+        <div className="store-pagination">
+          <Pagination
+            totalPage={Math.ceil(Number(count) / 10)}
+            maxPageSize={10}
+            nextPage={next}
+            prevPage={previous}
+            onPageChange={getStore}
+          />
+        </div>
       </React.Fragment>
     );
   }
 }
 
+Home.defaultProps = {
+  next: undefined,
+  previous: undefined
+};
+
 Home.propTypes = {
   getStore: PropTypes.func.isRequired,
   stores: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  count: PropTypes.number.isRequired,
+  next: PropTypes.number,
+  previous: PropTypes.number
 };
 
 const mapStateToProps = ({ store }) => ({
   stores: store.stores,
-  isLoading: store.isLoading
+  isLoading: store.isLoading,
+  count: store.count,
+  next: store.next,
+  previous: store.previous
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({

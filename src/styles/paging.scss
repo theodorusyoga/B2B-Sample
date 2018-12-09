@@ -1,0 +1,77 @@
+@import 'variables.scss';
+
+.custom-pagination{
+  display: block !important;
+  width: 100%;
+  text-align: center;
+  .page-item{
+    display: inline-block;
+    .page-link{
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      margin-right: 10px;
+      font-size: 0.78em;
+      color: $gray-dark;
+    }
+
+    &.next, &.prev{
+      &:first-child, &:last-child{
+        .page-link{
+          background: $brand;
+          color: #fff;
+        }
+      }
+    }
+
+    &.active{
+      .page-link{
+        background: #FFF;
+        border: 1px solid $brand;
+        color: $brand;
+      }
+    }
+
+    &.disabled{
+      .page-link{
+        border: 1px solid $gray-lighter !important;
+        background: $gray-light !important;
+        color: $gray-lighter !important;
+      }
+    }
+  }
+
+  &.mobile{
+    .page-item{
+      .page-link{
+       width: 25px;
+       height: 25px; 
+       padding: 0px;
+       border-radius: 3px;
+       svg{
+        top: -1px;
+        position: relative;
+       }
+      }
+    }
+    .paging-mobile{
+      font-size: 0.78em;
+      min-width: 250px;
+      text-align: center;
+      margin-bottom: 0px;
+      padding-top: 3px;
+      display: inline-block;
+      @media screen and (max-width: 320px){
+        min-width: 230px;
+      }
+      .current-page{
+        color: $brand;
+        font-weight: 600;
+        margin-right: 0.25rem;
+      }
+      .total-page{
+        margin-left: 0.25rem;
+      }
+    }
+  }
+}

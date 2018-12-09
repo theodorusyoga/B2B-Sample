@@ -17,8 +17,8 @@ import '../styles/store.scss';
 class StoreDetails extends React.Component {
   async componentWillMount() {
     const { match, getStoreDetail, getStore } = this.props;
-    getStore();
     await getStoreDetail(match.params.id);
+    getStore();
   }
 
   async componentWillReceiveProps(nextProps) {

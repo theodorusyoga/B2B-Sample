@@ -2,34 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
   Container, Form, Button, Alert
 } from 'reactstrap';
 import { Formik } from 'formik';
-import { Link } from 'react-router-dom';
 import Textbox from '../components/textbox';
 import Loader from '../components/loader';
 import { formValidation } from '../helpers/validation';
-import { onLoginFormSubmit, resetMessages } from '../actions/login';
+import { onSignUpFormSubmit, resetMessages } from '../actions/login';
 
 const initialData = {
   username: '',
   password: ''
 };
 
-class Login extends Component {
+class Signup extends Component {
   componentWillMount() {
     const { resetMessages } = this.props;
     resetMessages();
   }
 
   render() {
-    const { onLoginFormSubmit, warning, success } = this.props;
+    const { onSignUpFormSubmit, warning } = this.props;
     return (
       <Container className="login-box">
         <div className="login-header text-center">
           <img className="mb-3" src="/img/stoqo.png" alt="Stoqo" width="75" />
-          <h4 className="mb-4">Login with your account</h4>
+          <h4 className="mb-4">Sign Up</h4>
         </div>
         {
           warning.map((val, i) => (
@@ -38,17 +38,10 @@ class Login extends Component {
             </Alert>
           ))
         }
-        {
-          success !== '' && (
-          <Alert color="success">
-            {success}
-          </Alert>
-          )
-        }
         <Formik
           initialValues={initialData}
           validate={formValidation}
-          onSubmit={onLoginFormSubmit}
+          onSubmit={onSignUpFormSubmit}
         >
           {
           ({
@@ -86,12 +79,12 @@ class Login extends Component {
                     type="submit"
                     className="login-btn"
                   >
-                    Login
+                    Sign Up
                   </Button>
                 </div>
                 <div className="login-footer text-center">
-                  Don&#39;t have an account?&nbsp;
-                  <Link href="/sign-up" to="/sign-up">Sign up</Link>
+                  Already have an account?&nbsp;
+                  <Link href="/login" to="/login">Login</Link>
                 </div>
               </Form>
             ))
@@ -103,21 +96,19 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
-  onLoginFormSubmit: PropTypes.func.isRequired,
+Signup.propTypes = {
+  onSignUpFormSubmit: PropTypes.func.isRequired,
   warning: PropTypes.array.isRequired,
-  success: PropTypes.string.isRequired,
   resetMessages: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ login }) => ({
-  warning: login.warning,
-  success: login.success
+  warning: login.warning
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  onLoginFormSubmit,
+  onSignUpFormSubmit,
   resetMessages
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

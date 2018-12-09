@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { push } from 'react-router-redux';
 import {
   Card, CardImg, CardBody, CardTitle, CardSubtitle
 } from 'reactstrap';
 import Rating from 'react-star-ratings';
+import { goTo } from '../actions/login';
 
 import '../styles/card.scss';
 
 const StoreCard = ({
-  imageUrl, title, description, location, link, rating, goTo
+  imageUrl, title, description, link, rating, goTo
 }) => (
   <div
     className="store-card"
@@ -25,7 +25,9 @@ const StoreCard = ({
       />
       <CardBody>
         <CardTitle>{title}</CardTitle>
-        <CardSubtitle>{description}</CardSubtitle>
+        {
+          description !== '' && <CardSubtitle>{description}</CardSubtitle>
+        }
         <div className="store-rating">
           <Rating
             rating={rating}
@@ -41,23 +43,21 @@ const StoreCard = ({
 );
 
 StoreCard.defaultProps = {
-  rating: 5
+  rating: 5,
+  description: ''
 };
 
 StoreCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  location: PropTypes.string.isRequired,
+  description: PropTypes.string,
   link: PropTypes.string.isRequired,
   goTo: PropTypes.func.isRequired,
   rating: PropTypes.number
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  goTo: link => (dispatch) => {
-    dispatch(push(link));
-  }
+  goTo
 }, dispatch);
 
 export default connect(

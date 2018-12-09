@@ -1,6 +1,6 @@
 import {
   SET_STORE_LIST, SET_WARNING, TOGGLE_LOADING,
-  SET_STORE_DETAILS
+  SET_STORE_DETAILS, TOGGLE_STORE_LOADING
 } from '../actions/store';
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   previous: '',
   warning: [],
   isLoading: false,
+  isStoreLoading: false,
   storeDetails: {}
 };
 
@@ -32,6 +33,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: action.isLoading
+      };
+    case TOGGLE_STORE_LOADING:
+      return {
+        ...state,
+        isStoreLoading: action.isStoreLoading
       };
     case SET_STORE_DETAILS:
       return {

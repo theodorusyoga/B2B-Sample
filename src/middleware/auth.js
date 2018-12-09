@@ -37,6 +37,15 @@ const authMiddleware = store => next => async (action) => {
         remove('token');
       }
     }
+  } else if (action.type === 'REMOVE_AUTH') {
+    remove('token');
+    await store.dispatch({
+      type: SET_AUTHENTICATION,
+      userId: 0,
+      username: '',
+      email: '',
+      isAuthenticated: false
+    });
   } else {
     next(action);
   }

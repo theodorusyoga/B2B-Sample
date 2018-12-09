@@ -16,5 +16,15 @@
     .card-subtitle{
       margin-bottom: 15px;
     }
+    .store-rating{
+      .star-ratings{
+        .star-container{
+          svg{
+            width: 20px !important;
+            height: 20px !important;
+          }
+        }
+      }
+    }
   }
 }

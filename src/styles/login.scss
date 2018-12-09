@@ -10,11 +10,11 @@ body, html{
 
 .login-container{
   min-height: 100vh;
-  max-height: 100vh;
   background: url('/img/login-bg.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  padding-top: 150px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 
   @media screen and (max-width: 767px){
     padding-top: 80px;

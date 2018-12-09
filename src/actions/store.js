@@ -4,9 +4,12 @@ import { getStores, getStoreDetails } from '../helpers/api';
 export const SET_STORE_LIST = 'store/SET_STORE_LIST';
 export const SET_WARNING = 'store/SET_WARNING';
 export const TOGGLE_LOADING = 'store/TOGGLE_LOADING';
+export const TOGGLE_STORE_LOADING = 'store/TOGGLE_STORE_LOADING';
 export const SET_STORE_DETAILS = 'store/SET_STORE_DETAILS';
 
 export const toggleLoading = isLoading => ({ type: TOGGLE_LOADING, isLoading });
+
+export const toggleStoreLoading = isStoreLoading => ({ type: TOGGLE_STORE_LOADING, isStoreLoading });
 
 export const checkLogin = () => async (dispatch, getState) => {
   await dispatch({ type: 'CHECK_AUTH' });
@@ -56,12 +59,12 @@ export const getStore = action => async (dispatch, getState) => {
 };
 
 export const getStoreDetail = id => async (dispatch) => {
-  dispatch(toggleLoading(true));
+  dispatch(toggleStoreLoading(true));
   getStoreDetails(id).then(async ({ data }) => {
     dispatch({ type: SET_STORE_DETAILS, storeDetails: data });
-    dispatch(toggleLoading(false));
+    dispatch(toggleStoreLoading(false));
   }).catch(() => {
     dispatch(push('/404'));
-    dispatch(toggleLoading(false));
+    dispatch(toggleStoreLoading(false));
   });
 };

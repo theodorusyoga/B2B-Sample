@@ -1,11 +1,12 @@
-import { SET_AUTHENTICATION, SET_WARNING } from '../actions/login';
+import { SET_AUTHENTICATION, SET_WARNING, SET_SUCCESS } from '../actions/login';
 
 const initialState = {
   userId: 0,
   username: '',
   email: '',
   isAuthenticated: false,
-  warning: []
+  warning: [],
+  success: ''
 };
 
 export default (state = initialState, action) => {
@@ -22,6 +23,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         warning: action.warning
+      };
+    case SET_SUCCESS:
+      return {
+        ...state,
+        success: action.success
       };
     default:
       return state;

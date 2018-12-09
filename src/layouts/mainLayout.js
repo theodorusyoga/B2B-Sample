@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
 import {
   Navbar, Collapse, Nav, NavItem, NavLink, UncontrolledDropdown,
   DropdownToggle, DropdownItem, DropdownMenu, Button
@@ -11,6 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { checkLogin } from '../actions/store';
+import { goTo, logout } from '../actions/login';
 
 class MainLayout extends React.Component {
   componentWillMount() {
@@ -30,7 +30,7 @@ class MainLayout extends React.Component {
 
   render() {
     const {
-      children, isAuthenticated, username, goTo
+      children, isAuthenticated, username, goTo, logout
     } = this.props;
     const { isOpen } = this.state;
     return (
@@ -70,8 +70,8 @@ class MainLayout extends React.Component {
                           !
                         </DropdownToggle>
                         <DropdownMenu right>
-                          <DropdownItem>
-                            <Link to="/logout" href="/logout">Log Out</Link>
+                          <DropdownItem onClick={logout}>
+                            Log Out
                           </DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
@@ -127,7 +127,8 @@ MainLayout.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
   checkLogin: PropTypes.func.isRequired,
-  goTo: PropTypes.func.isRequired
+  goTo: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ login }) => ({
@@ -137,7 +138,8 @@ const mapStateToProps = ({ login }) => ({
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   checkLogin,
-  goTo: link => (dispatch) => { dispatch(push(link)); }
+  goTo,
+  logout
 }, dispatch);
 
 export default connect(

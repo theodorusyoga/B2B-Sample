@@ -9,24 +9,36 @@ import {
   faMapMarkerAlt, faPhone, faUser, faArchive
 } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../components/loader';
-import { getStoreDetail } from '../actions/store';
+import StoreCard from '../components/storeCard';
+import { getStoreDetail, getStore } from '../actions/store';
 
 import '../styles/store.scss';
 
 class StoreDetails extends React.Component {
   async componentWillMount() {
-    const { match, getStoreDetail } = this.props;
+    const { match, getStoreDetail, getStore } = this.props;
+    getStore();
     await getStoreDetail(match.params.id);
   }
 
+  async componentWillReceiveProps(nextProps) {
+    const { match } = this.props;
+    if (nextProps.match !== match) {
+      const { getStoreDetail } = this.props;
+      await getStoreDetail(nextProps.match.params.id);
+    }
+  }
+
   render() {
-    const { storeDetails, isLoading } = this.props;
+    const {
+      storeDetails, isStoreLoading, isLoading, stores
+    } = this.props;
     return (
       <Container className="store-details">
         <Row>
           <Col xs="12" sm="12" md="8" lg="8">
             {
-            isLoading
+            isStoreLoading
               ? (
                 <Loader />
               )
@@ -83,7 +95,29 @@ class StoreDetails extends React.Component {
           }
 
           </Col>
-          <Col xs="12" sm="12" md="4" lg="4" />
+          <Col xs="12" sm="12" md="4" lg="4">
+            <p>Suggested Stores</p>
+            {
+              isLoading
+                ? (
+                  <Loader />
+                ) : (
+                  <Row className="suggested-stores">
+                    {
+                    stores.map(val => (
+                      <Col className="store-col" key={val.id} xs="6" sm="6" md="6" lg="6">
+                        <StoreCard
+                          imageUrl={`/img/${val.type}.jpg`}
+                          title={val.name}
+                          link={`/store/${val.id}`}
+                        />
+                      </Col>
+                    ))
+                  }
+                  </Row>
+                )
+            }
+          </Col>
         </Row>
       </Container>
     );
@@ -92,18 +126,24 @@ class StoreDetails extends React.Component {
 
 StoreDetails.propTypes = {
   getStoreDetail: PropTypes.func.isRequired,
+  getStore: PropTypes.func.isRequired,
   storeDetails: PropTypes.object.isRequired,
+  stores: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isStoreLoading: PropTypes.bool.isRequired,
   match: PropTypes.object.isRequired
 };
 
 const mapStateToProps = ({ store }) => ({
   storeDetails: store.storeDetails,
-  isLoading: store.isLoading
+  stores: store.stores,
+  isLoading: store.isLoading,
+  isStoreLoading: store.isStoreLoading
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getStoreDetail
+  getStoreDetail,
+  getStore
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StoreDetails);

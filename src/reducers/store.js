@@ -1,6 +1,6 @@
 import {
   SET_STORE_LIST, SET_WARNING, TOGGLE_LOADING,
-  SET_STORE_DETAILS, TOGGLE_STORE_LOADING
+  SET_STORE_DETAILS, TOGGLE_STORE_LOADING, SET_FILTER_TYPE
 } from '../actions/store';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
   next: 0,
   previous: 0,
   warning: [],
+  filterType: '',
   isLoading: false,
   isStoreLoading: false,
   storeDetails: {}
@@ -43,6 +44,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         storeDetails: action.storeDetails
+      };
+    case SET_FILTER_TYPE:
+      return {
+        ...state,
+        filterType: action.filterType
       };
     default:
       return state;

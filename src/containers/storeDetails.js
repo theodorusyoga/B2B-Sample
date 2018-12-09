@@ -29,6 +29,19 @@ class StoreDetails extends React.Component {
     }
   }
 
+  typeConverter = (type) => {
+    switch (type) {
+      case 'cafe':
+        return 'Cafe';
+      case 'dineout':
+        return 'Dine Out';
+      case 'delivery':
+        return 'Delivery';
+      default:
+        return '';
+    }
+  }
+
   render() {
     const {
       storeDetails, isStoreLoading, isLoading, stores
@@ -86,7 +99,7 @@ class StoreDetails extends React.Component {
                       <Col xs="6">
                         <FontAwesomeIcon icon={faArchive} />
                         Business Type
-                        <p>{storeDetails.type}</p>
+                        <p>{this.typeConverter(storeDetails.type)}</p>
                       </Col>
                     </Row>
                   </div>

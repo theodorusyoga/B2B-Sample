@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Row, Col } from 'reactstrap';
+import { Row, Col, Input } from 'reactstrap';
 import Header from '../components/header';
-import { getStore } from '../actions/store';
+import { getStore, setFilterType } from '../actions/store';
 import StoreCard from '../components/storeCard';
 import Pagination from '../components/pagination';
 
@@ -18,13 +18,27 @@ class Home extends React.Component {
 
   render() {
     const {
-      stores, isLoading, count, next, previous, getStore
+      stores, isLoading, count, next, previous, getStore, filterType,
+      setFilterType
     } = this.props;
     return (
       <React.Fragment>
         <Header />
         <div className="store-show">
           <h2 className="store-title">Our Featured Stores</h2>
+          <div className="filter text-right">
+            Filter by type:&nbsp;&nbsp;
+            <Input
+              type="select"
+              onChange={setFilterType}
+              value={filterType}
+            >
+              <option value="">All</option>
+              <option value="cafe">Cafe</option>
+              <option value="delivery">Delivery</option>
+              <option value="dineout">Dine Out</option>
+            </Input>
+          </div>
           {
         isLoading
           ? (
@@ -74,6 +88,8 @@ Home.propTypes = {
   stores: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
   count: PropTypes.number.isRequired,
+  setFilterType: PropTypes.func.isRequired,
+  filterType: PropTypes.string.isRequired,
   next: PropTypes.number,
   previous: PropTypes.number
 };
@@ -83,11 +99,13 @@ const mapStateToProps = ({ store }) => ({
   isLoading: store.isLoading,
   count: store.count,
   next: store.next,
-  previous: store.previous
+  previous: store.previous,
+  filterType: store.filterType
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  getStore
+  getStore,
+  setFilterType
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

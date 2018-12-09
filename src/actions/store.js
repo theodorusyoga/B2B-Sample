@@ -6,6 +6,7 @@ export const SET_WARNING = 'store/SET_WARNING';
 export const TOGGLE_LOADING = 'store/TOGGLE_LOADING';
 export const TOGGLE_STORE_LOADING = 'store/TOGGLE_STORE_LOADING';
 export const SET_STORE_DETAILS = 'store/SET_STORE_DETAILS';
+export const SET_FILTER_TYPE = 'store/SET_FILTER_TYPE';
 
 export const toggleLoading = isLoading => ({ type: TOGGLE_LOADING, isLoading });
 
@@ -26,6 +27,14 @@ export const getStore = action => async (dispatch, getState) => {
   } else if (action === 'previous') {
     const page = getState().store.previous;
     params = { page: page !== 0 ? page : undefined };
+  }
+
+  const filter = getState().store.filterType;
+  if (filter !== '') {
+    params = {
+      ...params,
+      type: filter
+    };
   }
 
   getStores(params).then(async ({ data }) => {
@@ -64,6 +73,11 @@ export const getStore = action => async (dispatch, getState) => {
     }
     dispatch(toggleLoading(false));
   });
+};
+
+export const setFilterType = e => async (dispatch) => {
+  await dispatch({ type: SET_FILTER_TYPE, filterType: e.target.value });
+  dispatch(getStore());
 };
 
 export const getStoreDetail = id => async (dispatch) => {

@@ -4,13 +4,8 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const urls = [
-  '/*'
-];
-
-
 app.use(express.static(path.join(__dirname, 'build')));
-app.get(urls, (request, response) => {
+app.get('*', (request, response) => {
   response.sendFile(`${__dirname}/index.html`);
 });
 
